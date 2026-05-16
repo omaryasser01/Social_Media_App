@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Redis_Url = exports.Prefix_admin = exports.Prefix_user = exports.Pass = exports.User = exports.Audience = exports.Refresh_Secret_key_admin = exports.Refresh_Secret_key_user = exports.Access_Secret_key_admin = exports.Access_Secret_key_user = exports.DB_URi_online = exports.SaltRounds = exports.MogoURI = exports.PORT = void 0;
+exports.AWS_SECRET_ACCESS_KEY = exports.AWS_ACCESS_KEY = exports.AWS_BUCKET_NAME = exports.AWS_REGION = exports.client_ID = exports.Redis_Url = exports.Prefix_admin = exports.Prefix_user = exports.Pass = exports.User = exports.Audience = exports.Refresh_Secret_key_admin = exports.Refresh_Secret_key_user = exports.Access_Secret_key_admin = exports.Access_Secret_key_user = exports.DB_URi_online = exports.SaltRounds = exports.MogoURI = exports.PORT = void 0;
 const dotenv_1 = require("dotenv");
 const path_1 = require("path");
 const NODE_ENV = process.env.NODE_ENV;
@@ -19,3 +19,8 @@ exports.Pass = process.env.pass;
 exports.Prefix_user = process.env.prefix_user;
 exports.Prefix_admin = process.env.prefix_admin;
 exports.Redis_Url = process.env.Redis_Url;
+exports.client_ID = process.env.client_ID;
+exports.AWS_REGION = process.env.AWS_REGION;
+exports.AWS_BUCKET_NAME = process.env.AWS_BUCKET_NAME;
+exports.AWS_ACCESS_KEY = process.env.AWS_ACCESS_KEY;
+exports.AWS_SECRET_ACCESS_KEY = process.env.AWS_SECRET_ACCESS_KEY;

@@ -15,5 +15,5 @@ var RoleEnum;
 var providerEnum;
 (function (providerEnum) {
     providerEnum["System"] = "System";
-    providerEnum["Gmail"] = "Gmail";
+    providerEnum["Google"] = "Google";
 })(providerEnum || (exports.providerEnum = providerEnum = {}));

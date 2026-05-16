@@ -8,7 +8,7 @@ const mongoose_1 = __importDefault(require("mongoose"));
 const config_service_1 = require("../config/config.service");
 const checkDBconnection = async () => {
     try {
-        await mongoose_1.default.connect(config_service_1.MogoURI);
+        await mongoose_1.default.connect(config_service_1.DB_URi_online);
         console.log("DB connected successfully");
     }
     catch (error) {

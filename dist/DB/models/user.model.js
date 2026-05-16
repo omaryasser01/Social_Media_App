@@ -28,7 +28,9 @@ const userSchema = new mongoose_1.default.Schema({
     },
     password: {
         type: String,
-        required: true,
+        required: function () {
+            return this.provider == user_enum_1.providerEnum.System ? true : false;
+        },
         trim: true,
     },
     address: {
@@ -38,23 +40,36 @@ const userSchema = new mongoose_1.default.Schema({
     age: {
         type: Number,
         trim: true,
-        required: true,
+        required: function () {
+            return this.provider == user_enum_1.providerEnum.System ? true : false;
+        },
+        min: 18,
+        max: 99,
     },
     gender: {
         type: String,
         enum: user_enum_1.genderEnum,
-        required: true,
+        required: function () {
+            return this.provider == user_enum_1.providerEnum.System ? true : false;
+        },
     },
     role: {
         type: String,
         enum: user_enum_1.RoleEnum,
         default: user_enum_1.RoleEnum.user,
     },
+    provider: {
+        type: String,
+        enum: user_enum_1.providerEnum,
+        default: user_enum_1.providerEnum.System,
+    },
     phone: {
         type: String,
         trim: true,
     },
     confirmed: Boolean,
+    deletedAt: Date,
+    profilePic: String,
 }, {
     timestamps: true,
     strictQuery: true,

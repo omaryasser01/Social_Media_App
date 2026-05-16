@@ -46,6 +46,16 @@ class RedisService {
     return `revoke_token::${userId}::${jti}`;
   };
 
+  reset_pass_key = ({
+    userId,
+    jti,
+  }: {
+    userId: Types.ObjectId;
+    jti: string;
+  }) => {
+    return `resetPassKey::${userId}::${jti}`;
+  };
+
   get_key = (userId: Types.ObjectId) => {
     return `revoke_token::${userId}`;
   };

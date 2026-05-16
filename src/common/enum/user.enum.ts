@@ -11,5 +11,5 @@ export enum RoleEnum {
 
 export enum providerEnum {
   System = "System",
-  Gmail = "Gmail",
+  Google = "Google",
 }

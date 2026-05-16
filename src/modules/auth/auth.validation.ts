@@ -1,9 +1,14 @@
 import * as z from "zod";
 import { genderEnum, RoleEnum } from "../../common/enum/user.enum";
 
-export const signInSchema = {
+export const resendOtpSchema = {
   body: z.object({
     email: z.email(),
+  }),
+};
+
+export const signInSchema = {
+  body: resendOtpSchema.body.safeExtend({
     password: z.string().min(6),
   }),
 };

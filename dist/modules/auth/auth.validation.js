@@ -33,12 +33,16 @@ var __importStar = (this && this.__importStar) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.confirmEmailSchema = exports.signUpSchema = exports.signInSchema = void 0;
+exports.confirmEmailSchema = exports.signUpSchema = exports.signInSchema = exports.resendOtpSchema = void 0;
 const z = __importStar(require("zod"));
 const user_enum_1 = require("../../common/enum/user.enum");
-exports.signInSchema = {
+exports.resendOtpSchema = {
     body: z.object({
         email: z.email(),
+    }),
+};
+exports.signInSchema = {
+    body: exports.resendOtpSchema.body.safeExtend({
         password: z.string().min(6),
     }),
 };

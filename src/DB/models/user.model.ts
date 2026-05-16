@@ -1,5 +1,10 @@
 import mongoose, { Types } from "mongoose";
-import { genderEnum, RoleEnum } from "../../common/enum/user.enum";
+import {
+  genderEnum,
+  providerEnum,
+  RoleEnum,
+} from "../../common/enum/user.enum";
+import { AppError } from "../../common/utils/global-error";
 
 export interface IUser {
   _id: Types.ObjectId;
@@ -16,6 +21,9 @@ export interface IUser {
   confirmed?: boolean;
   createdAt: Date;
   updaetdAt: Date;
+  deletedAt: Date;
+  profilePic: string;
+  provider: providerEnum;
 }
 
 const userSchema = new mongoose.Schema<IUser>(
@@ -42,7 +50,9 @@ const userSchema = new mongoose.Schema<IUser>(
     },
     password: {
       type: String,
-      required: true,
+      required: function (): boolean {
+        return this.provider == providerEnum.System ? true : false;
+      },
       trim: true,
     },
     address: {
@@ -52,23 +62,36 @@ const userSchema = new mongoose.Schema<IUser>(
     age: {
       type: Number,
       trim: true,
-      required: true,
+      required: function (): boolean {
+        return this.provider == providerEnum.System ? true : false;
+      },
+      min: 18,
+      max: 99,
     },
     gender: {
       type: String,
       enum: genderEnum,
-      required: true,
+      required: function (): boolean {
+        return this.provider == providerEnum.System ? true : false;
+      },
     },
     role: {
       type: String,
       enum: RoleEnum,
       default: RoleEnum.user,
     },
+    provider: {
+      type: String,
+      enum: providerEnum,
+      default: providerEnum.System,
+    },
     phone: {
       type: String,
       trim: true,
     },
     confirmed: Boolean,
+    deletedAt: Date,
+    profilePic: String,
   },
   {
     timestamps: true,
@@ -86,6 +109,22 @@ userSchema
   .set(function (val: string) {
     this.set({ fName: val.split(" ")[0], lName: val.split(" ")[1] });
   });
+
+// userSchema.pre("validate", function () {
+//   if (this.age < 20) {
+//     throw new AppError("age wrong,prehook test");
+//   }
+// });
+
+// userSchema.pre("findOne", function () {
+//   console.log("==============pre find hook");
+//   const { paranoid, ...rest } = this.getQuery();
+//   if (paranoid == "false ") {
+//     this.setQuery({ ...rest });
+//   } else {
+//     this.setQuery({ ...rest, deletedAt: { $exists: false } });
+//   }
+// });
 
 const userModel =
   mongoose.models.user || mongoose.model<IUser>("user", userSchema);
